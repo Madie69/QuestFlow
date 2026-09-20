@@ -1,45 +1,71 @@
 # QuestFlow
 
-QuestFlow is a dependency-free live quest-routing addon for World of Warcraft Forever.
+**Live quest-route optimization for World of Warcraft Forever.**
 
-Instead of treating each quest as an isolated checklist item, QuestFlow continuously evaluates the active quest log, Blizzard quest POIs, nearby objective areas, turn-ins, player movement, and geographic clustering to reduce unnecessary backtracking.
+QuestFlow continuously evaluates your active quest log and Blizzard's quest POI data to build a practical route through nearby objectives and turn-ins. The goal is simple: spend less time backtracking and more time actually questing.
 
-## Current beta
+> **Don't optimize the next quest. Optimize the entire trip.**
 
-**v0.3.25**
+## Beta status
 
-The current beta restores geographic clustering for nearby objectives from different quests while preserving each quest and all unfinished objectives in the shared route stop.
+Current baseline: **v0.3.25 Beta**
 
-### Current features
+QuestFlow is under active development and is being tested against real leveling routes. v0.3.25 is the clean baseline for public development going forward.
 
-- Live route optimization from the player's current position
-- Geographic clustering of nearby quest objectives
-- Separate objective and turn-in route stops
-- CURRENT plus the next two route stops in the tracker
-- All unfinished objectives shown for quests in a visible route stop
-- Built-in directional arrow
-- Blizzard quest-blob-aware arrow hiding for the CURRENT quest
-- World-map and minimap route visualization
-- Ghost mode routing back to the player's corpse
-- Optional hiding of Blizzard's quest tracker
-- Dependency-free implementation
+## What it does
+
+- Continuously re-optimizes as you move, accept quests, finish objectives, turn quests in, or change zones
+- Groups nearby objectives from different quests into shared geographic stops
+- Keeps objective work and turn-ins as separate route-stop types
+- Shows **CURRENT** plus the next two optimized stops
+- Shows every unfinished objective for quests grouped into a visible stop
+- Uses Blizzard's quest-specific objective blobs when deciding when the navigation arrow should disappear
+- Falls back to Blizzard POI coordinates when no objective blob exists
+- Includes its own directional arrow with no TomTom dependency
+- Draws the active route on the world map and minimap
+- Routes ghosts back to their corpse, then resumes normal quest routing after resurrection
+- Can hide Blizzard's default quest tracker
+- Has no external addon dependencies
+
+## Routing model
+
+QuestFlow treats the active quest log as a routing problem rather than a fixed checklist.
+
+Nearby objective POIs may be combined into a single geographic stop even when they belong to different quests. Each quest and its unfinished objectives remain individually visible inside that stop. Turn-ins are optimized as route nodes too, but objective stops and turn-in stops are never merged.
+
+The tracker, navigation arrow, and map route all consume the same optimized route so the UI does not disagree with itself.
 
 ## Install
 
-Copy the `QuestFlow` folder into your World of Warcraft Forever `Interface/AddOns` directory, then enable **QuestFlow** from the AddOns screen.
+1. Download the current QuestFlow build.
+2. Extract the `QuestFlow` folder into your WoW Forever `Interface/AddOns` directory.
+3. Enable **QuestFlow** from the AddOns screen.
+4. Enter the world and use `/qf` to toggle the tracker.
 
 ## Commands
 
-- `/qf` — toggle QuestFlow
-- `/qf blizzard` — hide/show Blizzard's quest tracker
-- `/qf arrow` — hide/show QuestFlow's navigation arrow
-- `/qf map` — hide/show the map route
-- `/qf recalc` — force a route recalculation
-- `/qf reset` — clear ignored/deferred quest state
-- `/qf lock` — compatibility command; routing is always live and this forces a re-optimization
+| Command | Action |
+| --- | --- |
+| `/qf` | Toggle the QuestFlow tracker |
+| `/qf arrow` | Show or hide the navigation arrow |
+| `/qf blizzard` | Show or hide Blizzard's quest tracker |
+| `/qf map` | Show or hide QuestFlow's map route |
+| `/qf recalc` | Force an immediate route recalculation |
+| `/qf reset` | Reset ignored/deferred quest state |
+| `/qf lock` | Legacy compatibility command; forces re-optimization |
 
-## Design goal
+## v0.3.25
 
-> Don't optimize the next quest. Optimize the entire trip.
+This release widens **objective-area clustering** to 7.5% normalized map distance while keeping turn-in clustering at 4.5%. Nearby objectives from different quests can therefore share one geographic route stop without losing quest identity or objective detail.
 
-QuestFlow is currently in beta and is being tested against real leveling routes in WoW Forever.
+This release intentionally contains **no timed-quest experiment code**.
+
+## Compatibility
+
+QuestFlow currently targets the WoW Forever client interface used during beta testing (`Interface: 16001`).
+
+## Project status
+
+**Beta.** Expect route heuristics and UI behavior to continue evolving as more leveling routes and quest combinations are tested.
+
+Bug reports and reproducible routing examples are welcome through GitHub Issues.
