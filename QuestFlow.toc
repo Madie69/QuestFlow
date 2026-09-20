@@ -2,7 +2,7 @@
 ## Title: QuestFlow
 ## Notes: Dependency-free live quest routing for WoW Forever.
 ## Author: Kevin + ChatGPT
-## Version: 0.3.25
+## Version: 0.3.27
 ## IconTexture: Interface\Icons\INV_Misc_Map_01
 ## SavedVariables: QuestFlowDB
 
