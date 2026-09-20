@@ -2,6 +2,14 @@
 
 All notable public QuestFlow changes will be documented here.
 
+## v0.3.27 Beta — 2026-09-20
+
+### Ghost Mode
+- Fixed Forever-client startup error caused by registering unsupported `CORPSE_POSITION_UPDATE`.
+- Kept the v0.3.26 corpse-target acquisition fix: QuestFlow searches the current map and parent-map chain for Blizzard's corpse position.
+- Uses supported death/resurrection events plus the existing live refresh/movement loop for corpse-run navigation.
+- Preserves the v0.3.25 routing and UI baseline.
+
 ## v0.3.25 Beta — 2026-09-20
 
 This is the clean public-development baseline for QuestFlow.
