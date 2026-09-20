@@ -8,9 +8,9 @@ QuestFlow continuously evaluates your active quest log and Blizzard's quest POI 
 
 ## Beta status
 
-Current baseline: **v0.3.25 Beta**
+Current baseline: **v0.3.27 Beta**
 
-QuestFlow is under active development and is being tested against real leveling routes. v0.3.25 is the clean baseline for public development going forward.
+QuestFlow is under active development and is being tested against real leveling routes. v0.3.27 is the current beta baseline for public development going forward.
 
 ## What it does
 
@@ -54,11 +54,11 @@ The tracker, navigation arrow, and map route all consume the same optimized rout
 | `/qf reset` | Reset ignored/deferred quest state |
 | `/qf lock` | Legacy compatibility command; forces re-optimization |
 
-## v0.3.25
+## v0.3.27
 
-This release widens **objective-area clustering** to 7.5% normalized map distance while keeping turn-in clustering at 4.5%. Nearby objectives from different quests can therefore share one geographic route stop without losing quest identity or objective detail.
+This release fixes Ghost Mode corpse-run navigation for the WoW Forever client. Corpse targeting now searches the player's current map and parent-map chain for Blizzard's corpse position, while avoiding the unsupported `CORPSE_POSITION_UPDATE` event registration discovered during Forever testing.
 
-This release intentionally contains **no timed-quest experiment code**.
+The v0.3.25 routing baseline remains intact: objective-area clustering is 7.5% normalized map distance, turn-in clustering is 4.5%, nearby objectives from different quests may share a geographic stop, and timed-quest experiment code remains excluded.
 
 ## Compatibility
 
